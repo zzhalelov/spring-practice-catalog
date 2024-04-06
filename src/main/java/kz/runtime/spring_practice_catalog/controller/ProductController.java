@@ -37,4 +37,11 @@ public class ProductController {
         productRepository.create(product);
         return "redirect:/products";
     }
+
+    @PostMapping("/create")
+    public String createProduct(@ModelAttribute Product product) {
+        productRepository.create(product);
+        return "redirect:/products";
+    }
+
 }
