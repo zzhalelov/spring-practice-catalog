@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/categories")
@@ -29,7 +31,24 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Category category) {
+    public String createPost(@ModelAttribute Category category, Model model) {
+        if (category.getName() == null || category.getName().isEmpty()) {
+            model.addAttribute("error", "Название пустое");
+            return "category_create";
+        }
+
+        boolean exists = false;
+        List<Category> categoryList = categoryRepository.findAll();
+        for (Category c : categoryList) {
+            if (c.getName().equals(category.getName())) {
+                exists = true;
+                break;
+            }
+        }
+        if (exists) {
+            model.addAttribute("error", "Такая категория уже есть");
+            return "category_create";
+        }
         categoryRepository.create(category);
         return "redirect:/categories";
     }
