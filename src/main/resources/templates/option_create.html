@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать характеристику</title>
+</head>
+<body>
+<h1>Создать характеристику</h1>
+<form action="/options/create" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name">
+
+    <label for="category">Категория:</label>
+    <select id="category" name="category.id">
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+
+    <button type="submit">Создать</button>
+</form>
+</body>
+</html>
