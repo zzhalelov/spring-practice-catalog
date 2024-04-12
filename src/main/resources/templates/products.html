@@ -6,9 +6,22 @@
 </head>
 <body>
 <h1>Все продукты</h1>
-<div th:each="product:${products}">
-    [[${product.name}]]
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>Название продукта</th>
+        <th>Категория</th>
+        <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product: ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.category.name}"></td>
+        <td th:text="${product.getPrice()}"></td>
+    </tr>
+    </tbody>
+</table>
 
 <a href="/products/create">Создать продукт</a>
 </body>
