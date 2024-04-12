@@ -49,7 +49,7 @@ public class CategoryController {
             model.addAttribute("error", "Такая категория уже есть");
             return "category_create";
         }
-        categoryRepository.create(category);
+        categoryRepository.save(category);
         return "redirect:/categories";
     }
 }
