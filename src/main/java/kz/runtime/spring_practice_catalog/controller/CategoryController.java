@@ -37,14 +37,8 @@ public class CategoryController {
             return "category_create";
         }
 
-        boolean exists = false;
-        List<Category> categoryList = categoryRepository.findAll();
-        for (Category c : categoryList) {
-            if (c.getName().equals(category.getName())) {
-                exists = true;
-                break;
-            }
-        }
+        boolean exists = categoryRepository.existsById(category.getId());
+
         if (exists) {
             model.addAttribute("error", "Такая категория уже есть");
             return "category_create";
