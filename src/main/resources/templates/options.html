@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Характеристики</title>
+</head>
+<body>
+<h1>Характеристики</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Категория</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="option : ${options}">
+        <td th:text="${option.id}"></td>
+        <td th:text="${option.name}"></td>
+        <td th:text="${option.category.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/options/create">Создать характеристику</a>
+</body>
+</html>
