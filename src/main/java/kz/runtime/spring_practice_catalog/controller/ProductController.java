@@ -34,14 +34,13 @@ public class ProductController {
 
     @PostMapping
     public String createPost(@ModelAttribute Product product, @ModelAttribute Category category) {
-        productRepository.create(product);
+        productRepository.save(product);
         return "redirect:/products";
     }
 
     @PostMapping("/create")
     public String createProduct(@ModelAttribute Product product) {
-        productRepository.create(product);
+        productRepository.save(product);
         return "redirect:/products";
     }
-
 }
