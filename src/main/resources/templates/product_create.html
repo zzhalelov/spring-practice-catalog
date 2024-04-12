@@ -8,6 +8,8 @@
 <form action="/products/create" method="post" th:object="${product}">
     <p>Название продукта</p>
     <input type="text" th:field="*{name}">
+    <p>Цена</p>
+    <input type="number" th:field="*{price}">
     <p>Категория</p>
     <select th:field="*{category.id}">
         <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
