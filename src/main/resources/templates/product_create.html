@@ -5,16 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/products/create" method="post" th:object="${product}">
-    <p>Название продукта</p>
-    <input type="text" th:field="*{name}">
+<h2>Create Product</h2>
+<form action="/products/create" method="post">
+    <p>Название продукта:</p>
+    <input type="text" name="name">
+
+    <p>Категории:</p>
+    <select name="category.id">
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+
+    <p>Характеристики:</p>
+    <div th:each="option : ${options}">
+        <p th:text="${option.name}"></p>
+        <input type="hidden" name="optionIds" th:value="${option.id}">
+        <input type="text" name="values">
+    </div>
+
     <p>Цена</p>
     <input type="number" th:field="*{price}">
-    <p>Категория</p>
-    <select th:field="*{category.id}">
-        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-    </select>
-    <button type="submit">Сохранить</button>
+
+    <button type="submit">Создать</button>
 </form>
 </body>
 </html>
