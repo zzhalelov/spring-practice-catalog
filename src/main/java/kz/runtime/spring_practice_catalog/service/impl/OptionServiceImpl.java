@@ -44,12 +44,16 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public void update(long id, Option updatedEntity) {
-        // TODO
+        Option option = optionRepository.findById(id).orElseThrow();
+        option.setName(updatedEntity.getName());
+
+        option.setCategory(updatedEntity.getCategory());
+        optionRepository.save(option);
     }
 
     @Override
     public void deleteById(long id) {
-        // TODO
+        optionRepository.deleteById(id);
     }
 
     // NOT IMPLEMENTED
