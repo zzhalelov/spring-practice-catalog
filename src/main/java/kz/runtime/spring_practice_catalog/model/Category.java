@@ -18,11 +18,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
-
     @OneToMany(mappedBy = "category")
     List<Product> products;
 
-    public void addProduct(Product product) {
-        products.add(product);
-    }
+    @OneToMany(mappedBy = "category")
+    List<Option> options;
 }
