@@ -10,12 +10,12 @@
     <p>Название продукта:</p>
     <input type="text" name="name">
 
-    <p>Категории:</p>
+    <p>Выбоать категорию:</p>
     <select name="category.id">
         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
     </select>
 
-    <p>Характеристики:</p>
+    <p>Выберите характеристику:</p>
     <div th:each="option : ${options}">
         <p th:text="${option.name}"></p>
         <input type="hidden" name="optionIds" th:value="${option.id}">
