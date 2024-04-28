@@ -1,6 +1,6 @@
 package kz.runtime.spring_practice_catalog.controller;
 
-import kz.runtime.spring_practice_catalog.model.Product;
+import kz.runtime.spring_practice_catalog.model.Category;
 import kz.runtime.spring_practice_catalog.service.CategoryService;
 import kz.runtime.spring_practice_catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,21 +31,25 @@ public class ProductController {
     }
 
     @GetMapping("/create")
-    public String showForm(Model model, @RequestParam long categoryId) {
-        model.addAttribute("product", new Product());
-        model.addAttribute("category", categoryService.findById(categoryId));
-        return "product_create";
+    public String showForm(Model model, @RequestParam(required = false) Long categoryId) {
+        if (categoryId == null) {
+            model.addAttribute("categories", categoryService.findAll());
+            return "choose_category_for_product";
+        } else {
+            Category category = categoryService.findById(categoryId);
+            model.addAttribute("category", category);
+            model.addAttribute("options", category.getOptions());
+            return "product_create";
+        }
     }
 
     @PostMapping("/create")
-    public String showForm(
-            @ModelAttribute Product product,
-            @RequestParam List<String> values,
-            @RequestParam(required = false) List<Long> optionIds
-    ) {
-        System.out.println(product);
-        System.out.println(values);
-        System.out.println(optionIds);
+    public String createProduct(@RequestParam String name,
+                                @RequestParam long categoryId,
+                                @RequestParam Map<String, String> requestParams) {
+        List<String> values = List.of();
+        double price = Double.parseDouble(requestParams.get("price"));
+        productService.create(name, categoryId, values, price);
         return "redirect:/products";
     }
 }
