@@ -7,14 +7,16 @@
 <body>
 <h2>Создать продукт</h2>
 <form action="/products/create" method="post">
+    <input type="hidden" name="categoryId" th:value="${category.id}">
     <p>Наименование:</p>
     <input type="text" name="name">
 
     <p>Указать значения характеристик:</p>
     <div th:each="option : ${options}">
         <p th:text="${option.name}"></p>
-        <input type="text" name="values" th:attr="placeholder='Введи значение для ' + ${option.name}">
+        <input type="text" th:name="${option.id}" th:attr="placeholder='Введи значение для ' + ${option.name}">
     </div>
+
 
     <p>Ценв:</p>
     <input type="number" name="price">
