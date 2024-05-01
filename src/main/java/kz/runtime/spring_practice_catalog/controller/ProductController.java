@@ -46,10 +46,10 @@ public class ProductController {
     @PostMapping("/create")
     public String createProduct(@RequestParam String name,
                                 @RequestParam long categoryId,
-                                @RequestParam Map<String, String> requestParams) {
-        List<String> values = List.of();
-        double price = Double.parseDouble(requestParams.get("price"));
-        productService.create(name, categoryId, values, price);
+                                @RequestParam Map<String, String> values) {
+        List<String> val = List.of();
+        double price = Double.parseDouble(values.get("price"));
+        productService.create(name, categoryId, val, price);
         return "redirect:/products";
     }
 }
