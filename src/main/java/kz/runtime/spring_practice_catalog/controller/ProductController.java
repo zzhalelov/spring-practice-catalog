@@ -1,6 +1,7 @@
 package kz.runtime.spring_practice_catalog.controller;
 
 import kz.runtime.spring_practice_catalog.model.Category;
+import kz.runtime.spring_practice_catalog.model.Product;
 import kz.runtime.spring_practice_catalog.service.CategoryService;
 import kz.runtime.spring_practice_catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,19 @@ public class ProductController {
         List<String> val = List.of();
         double price = Double.parseDouble(values.get("price"));
         productService.create(name, categoryId, val, price);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam long id, Model model) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        return "product_update";
+    }
+
+    @PostMapping("/update")
+    public String updateProduct(long id, Product updatedProduct) {
+        productService.update(id, updatedProduct);
         return "redirect:/products";
     }
 }

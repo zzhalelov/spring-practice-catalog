@@ -40,4 +40,21 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll() {
         return productRepository.findAll();
     }
+
+    @Override
+    public void update(long id, Product updatedProduct) {
+        Product currentProduct = findById(id);
+        currentProduct.setName(updatedProduct.getName());
+        currentProduct.setPrice(updatedProduct.getPrice());
+    }
+
+    @Override
+    public Product findById(long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void deleteById(long id) {
+        productRepository.deleteById(id);
+    }
 }
