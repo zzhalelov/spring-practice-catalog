@@ -15,8 +15,6 @@
             <th>Название продукта</th>
             <th>Категория</th>
             <th>Цена</th>
-            <th></th>
-            <th></th>
             <th>Редактировать</th>
             <th>Удалить</th>
         </tr>
@@ -26,6 +24,9 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.category.name}"></td>
             <td th:text="${product.price}"></td>
+            <td>
+                <a th:href="@{/products/update/{productId}(productId=${product.id})}">Редактировать</a>
+            </td>
 
         </tr>
         </tbody>
