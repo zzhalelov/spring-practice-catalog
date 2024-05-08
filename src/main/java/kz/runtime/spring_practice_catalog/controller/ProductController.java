@@ -62,8 +62,21 @@ public class ProductController {
     }
 
     @PostMapping("/update/{productId}")
-    public String updateProduct(@PathVariable("productId") long productId,@ModelAttribute Product updatedProduct) {
+    public String updateProduct(@PathVariable("productId") long productId, @ModelAttribute Product updatedProduct) {
         productService.update(productId, updatedProduct);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/delete/{productId}")
+    public String showDeleteForm(@PathVariable("productId") long productId, Model model) {
+        Product product = productService.findById(productId);
+        model.addAttribute("product", product);
+        return "product_delete";
+    }
+
+    @PostMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable("productId") long productId) {
+        productService.deleteById(productId);
         return "redirect:/products";
     }
 }
