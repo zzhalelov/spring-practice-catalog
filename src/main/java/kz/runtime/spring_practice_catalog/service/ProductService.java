@@ -1,6 +1,7 @@
 package kz.runtime.spring_practice_catalog.service;
 
 import kz.runtime.spring_practice_catalog.model.Product;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public interface ProductService {
     Product findById(long id);
 
     void deleteById(long id);
+
+    @Transactional
+    void deleteProductAndValues(long productId);
 }

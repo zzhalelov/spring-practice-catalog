@@ -6,5 +6,11 @@
 </head>
 <body>
 <h1>Вы уверены, что хотите удалить товар?</h1>
+<p>Товар: <span th:text="${product.name}"></span></p>
+<form th:action="@{/products/delete/{productId}(productId=${product.id})}" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Удалить</button>
+</form>
+<a href="/products">Отмена</a>
 </body>
 </html>

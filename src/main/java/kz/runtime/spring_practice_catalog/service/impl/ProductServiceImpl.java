@@ -9,6 +9,7 @@ import kz.runtime.spring_practice_catalog.service.CategoryService;
 import kz.runtime.spring_practice_catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -57,5 +58,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(long productId) {
         productRepository.deleteById(productId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProductAndValues(long productId) {
+        Product product = productRepository.findById(productId).orElseThrow();
+        valueRepository.deleteByProduct(product);
+        productRepository.delete(product);
     }
 }

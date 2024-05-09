@@ -27,7 +27,9 @@
             <td>
                 <a th:href="@{/products/update/{productId}(productId=${product.id})}">Редактировать</a>
             </td>
-
+            <td>
+                <a th:href="@{/products/delete/{productId}(productId=${product.id})}">Удалить</a>
+            </td>
         </tr>
         </tbody>
     </table>
