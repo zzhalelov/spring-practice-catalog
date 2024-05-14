@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +24,6 @@ public class Product {
     @JoinColumn(name = "category_id")
     Category category;
 
-    public Product(String name, double price) {
-    }
+    @OneToMany(mappedBy = "product")
+    List<Value> valueList;
 }

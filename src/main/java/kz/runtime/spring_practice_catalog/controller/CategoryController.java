@@ -3,6 +3,7 @@ package kz.runtime.spring_practice_catalog.controller;
 import kz.runtime.spring_practice_catalog.model.Category;
 
 import kz.runtime.spring_practice_catalog.service.CategoryService;
+import kz.runtime.spring_practice_catalog.service.OptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final OptionService optionService;
 
     @GetMapping
     public String findAll(Model model) {
@@ -27,8 +29,9 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Category category) {
+    public String createPost(@ModelAttribute Category category, @RequestParam String optionNames) {
         categoryService.create(category);
+        optionService.create(optionNames, category);
         return "redirect:/categories";
     }
 }

@@ -1,6 +1,5 @@
 package kz.runtime.spring_practice_catalog.controller;
 
-import kz.runtime.spring_practice_catalog.model.Category;
 import kz.runtime.spring_practice_catalog.model.Product;
 import kz.runtime.spring_practice_catalog.service.CategoryService;
 import kz.runtime.spring_practice_catalog.service.ProductService;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,23 +32,20 @@ public class ProductController {
     @GetMapping("/create")
     public String showForm(Model model, @RequestParam(required = false) Long categoryId) {
         if (categoryId == null) {
-            model.addAttribute("categories", categoryService.findAll());
-            return "choose_category_for_product";
-        } else {
-            Category category = categoryService.findById(categoryId);
-            model.addAttribute("category", category);
-            model.addAttribute("options", category.getOptions());
-            return "product_create";
+            return "redirect:/products/create/chooseCategory";
         }
+        model.addAttribute("category", categoryService.findById(categoryId));
+        model.addAttribute("product", new Product());
+        return "product_create";
     }
 
     @PostMapping("/create")
-    public String createProduct(@RequestParam String name,
-                                @RequestParam long categoryId,
-                                @RequestParam Map<String, String> values) {
-        List<String> val = List.of();
-        double price = Double.parseDouble(values.get("price"));
-        productService.create(name, categoryId, val, price);
+    public String createProduct(
+            @ModelAttribute Product product,
+            @RequestParam long categoryId,
+            @RequestParam List<String> values,
+            @RequestParam List<Long> optionIds) {
+        productService.create(product, categoryId, optionIds, values);
         return "redirect:/products";
     }
 
@@ -58,12 +53,18 @@ public class ProductController {
     public String showUpdateForm(@PathVariable("productId") long productId, Model model) {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
+        model.addAttribute("options", categoryService.findById(product.getCategory().getId()).getOptions());
+        model.addAttribute("values", product.getValueList());
         return "product_update";
     }
 
     @PostMapping("/update/{productId}")
-    public String updateProduct(@PathVariable("productId") long productId, @ModelAttribute Product updatedProduct) {
-        productService.update(productId, updatedProduct);
+    public String updateProduct(@PathVariable long productId,
+                                @RequestParam String updatedName,
+                                @RequestParam double updatedPrice,
+                                @RequestParam List<String> valueNames,
+                                @RequestParam List<Long> optionIds) {
+        productService.update(productId, updatedName, updatedPrice, optionIds, valueNames);
         return "redirect:/products";
     }
 
