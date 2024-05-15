@@ -50,11 +50,10 @@ public class ProductController {
     }
 
     @GetMapping("/update/{productId}")
-    public String showUpdateForm(@PathVariable("productId") long productId, Model model) {
+    public String showUpdateForm(@PathVariable long productId, Model model) {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
-        model.addAttribute("options", categoryService.findById(product.getCategory().getId()).getOptions());
-        model.addAttribute("values", product.getValueList());
+        model.addAttribute("options", productService.getOptions(product));
         return "product_update";
     }
 
@@ -65,19 +64,6 @@ public class ProductController {
                                 @RequestParam List<String> valueNames,
                                 @RequestParam List<Long> optionIds) {
         productService.update(productId, updatedName, updatedPrice, optionIds, valueNames);
-        return "redirect:/products";
-    }
-
-    @GetMapping("/delete/{productId}")
-    public String showDeleteForm(@PathVariable("productId") long productId, Model model) {
-        Product product = productService.findById(productId);
-        model.addAttribute("product", product);
-        return "product_delete";
-    }
-
-    @PostMapping("/delete/{productId}")
-    public String deleteProduct(@PathVariable("productId") long productId) {
-        productService.deleteProductAndValues(productId);
         return "redirect:/products";
     }
 }

@@ -1,5 +1,6 @@
 package kz.runtime.spring_practice_catalog.repository;
 
+import kz.runtime.spring_practice_catalog.model.Option;
 import kz.runtime.spring_practice_catalog.model.Product;
 import kz.runtime.spring_practice_catalog.model.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,5 @@ public interface ValueRepository extends JpaRepository<Value, Long> {
 
     List<Value> findAllProductsById(long productId);
 
-    Optional<Value> findByProductIdAndOptionId(long productId, long optionId);
+    Optional<Value> findByProductAndOption(Product product, Option option);
 }

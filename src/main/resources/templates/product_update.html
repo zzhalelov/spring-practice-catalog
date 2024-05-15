@@ -7,23 +7,22 @@
 </head>
 <body>
 <h2>Обновить сведения о товаре: </h2>
-<form th:action="@{|/products/update/${product.getId()}|}" th:object="${product}" method="post" class="form">
-    <input type="hidden" name="productId" th:value="*{id}">
-    <label>Название: </label>
-    <input type="text" name="updatedName" th:value="*{name}">
+<form th:action="@{|/products/update/${product.getId()}|}" th:object="${product}" method="post">
+    <label for="name">Название: </label>
+    <input id="name" name="updatedName" th:value="*{name}" required class="form-control">
     <br>
-    <label>Цена: </label>
-    <input type="text" name="updatedPrice" th:value="*{price}">
+    <label for="price">Цена: </label>
+    <input id="price" name="updatedPrice" th:value="*{price}" required class="form-control">
     <br>
-    <div th:each="option, iterate: ${options}">
-        <input type="hidden" name="optionIds" th:value="${option.id}">
-        <p th:text="${option.name}"></p>
-        <input th:value="${values.get(iterate.index).getName()}"
-               name="valuesNames" class="form-control">
-        <button class="btn btn-primary" type="submit">Отправить</button>
+    <div th:each="entry: ${options}">
+        <input type="hidden" name="optionIds" th:value="${entry.getKey().id}">
+        <p th:text="${entry.getKey().getName()}"></p>
+
+        <input th:value="${entry.getValue().isPresent() ? entry.getValue().get().name : ''}"
+               name="valueNames" class="form-control">
     </div>
     <br>
-    <input type="submit" value="Update">
+    <button class="btn btn-primary" type="submit">Отправить</button>
     <br>
 </form>
 </body>
