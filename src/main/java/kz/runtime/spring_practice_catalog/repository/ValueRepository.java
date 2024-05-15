@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ValueRepository extends JpaRepository<Value, Long> {
     @Transactional
-    void deleteByProduct(Product product);
+    void deleteByProductId(long productId);
 
     List<Value> findAllProductsById(long productId);
 

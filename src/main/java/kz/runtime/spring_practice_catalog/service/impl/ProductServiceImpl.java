@@ -90,11 +90,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(long productId) {
-        productRepository.deleteById(productId);
-    }
-
-    @Override
     public Map<Option, Optional<Value>> getOptions(Product product) {
         Map<Option, Optional<Value>> result = new LinkedHashMap<>();
         long categoryId = product.getCategory().getId();
@@ -104,5 +99,11 @@ public class ProductServiceImpl implements ProductService {
             result.put(option, optionalValue);
         }
         return result;
+    }
+
+    @Override
+    public void deleteById(long id) {
+        valueRepository.deleteByProductId(id);
+        productRepository.deleteById(id);
     }
 }
