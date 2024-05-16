@@ -23,6 +23,13 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("{productId}")
+    public String findById(@PathVariable long productId, Model model) {
+        Product product = productService.findById(productId);
+        model.addAttribute("product", product);
+        return "product_single_page";
+    }
+
     @GetMapping("/create/chooseCategory")
     public String chooseCategory(Model model) {
         model.addAttribute("categories", categoryService.findAll());
@@ -43,8 +50,8 @@ public class ProductController {
     public String createProduct(
             @ModelAttribute Product product,
             @RequestParam long categoryId,
-            @RequestParam List<String> values,
-            @RequestParam List<Long> optionIds) {
+            @RequestParam List<Long> optionIds,
+            @RequestParam List<String> values) {
         productService.create(product, categoryId, optionIds, values);
         return "redirect:/products";
     }

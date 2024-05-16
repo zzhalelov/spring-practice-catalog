@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,7 +17,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
     String name;
     double price;
 
@@ -25,5 +26,5 @@ public class Product {
     Category category;
 
     @OneToMany(mappedBy = "product")
-    List<Value> valueList;
+    List<Value> values = new ArrayList<>();
 }
