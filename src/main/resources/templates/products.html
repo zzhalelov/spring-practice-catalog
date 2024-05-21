@@ -10,9 +10,26 @@
 <div class="container">
     <h1>Все продукты</h1>
     <div>
-        <input type="number" name="minPrice">
-        <input type="number" name="maxPrice">
-        <button type="submit">Фильтровать</button>
+        <form th:action="@{/products}" method="get">
+            <div>
+                <label for="minPrice">Минимальная цена:</label>
+                <input type="number" name="minPrice" id="minPrice">
+            </div>
+            <div>
+                <label for="maxPrice">Максимальная цена:</label>
+                <input type="number" name="maxPrice" id="maxPrice">
+            </div>
+            <div>
+                <label for="category">Категория:</label>
+                <select name="categoryId" id="category">
+                    <option value="">Все</option>
+                    <tr th:each="category:${categories}">
+                        <option th:value="${category.id}" th:text="${category.name}"></option>
+                    </tr>
+                </select>
+            </div>
+            <button type="submit">Фильтровать</button>
+        </form>
     </div>
     <table class="table">
         <thead>

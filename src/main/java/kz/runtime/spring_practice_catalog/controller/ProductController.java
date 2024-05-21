@@ -18,8 +18,13 @@ public class ProductController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("products", productService.findAll());
+    public String findAll(@RequestParam(required = false) Double minPrice,
+                          @RequestParam(required = false) Double maxPrice,
+                          @RequestParam(required = false) Long categoryId,
+                          Model model) {
+        List<Product> products = productService.findByFilters(minPrice, maxPrice, categoryId);
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categoryService.findAll());
         return "products";
     }
 

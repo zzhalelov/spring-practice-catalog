@@ -11,6 +11,8 @@ import kz.runtime.spring_practice_catalog.repository.ProductRepository;
 import kz.runtime.spring_practice_catalog.repository.ValueRepository;
 import kz.runtime.spring_practice_catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -25,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final OptionRepository optionRepository;
     private final ValueRepository valueRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void create(Product product, long categoryId, List<Long> optionIds, List<String> values) {
@@ -105,5 +108,24 @@ public class ProductServiceImpl implements ProductService {
     public void deleteById(long id) {
         valueRepository.deleteByProductId(id);
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findByPriceRange(Double minPrice, Double maxPrice) {
+        if (minPrice == null) minPrice = 0.0;
+        if (maxPrice == null) maxPrice = Double.MAX_VALUE;
+        String query = "SELECT * FROM products WHERE price BETWEEN ? AND ?";
+        return jdbcTemplate.query(query, new Object[]{minPrice, maxPrice}, new BeanPropertyRowMapper<>());
+    }
+
+    @Override
+    public List<Product> findByFilters(Double minPrice, Double maxPrice, Long categoryId) {
+        if (minPrice == null) minPrice = 0.0;
+        if (maxPrice == null) maxPrice = Double.MAX_VALUE;
+        if (categoryId == null) {
+            return productRepository.findByPriceBetween(minPrice, maxPrice);
+        } else {
+            return productRepository.findByPriceBetweenAndCategoryId(minPrice, maxPrice, categoryId);
+        }
     }
 }
