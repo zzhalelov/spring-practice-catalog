@@ -9,14 +9,19 @@
 <body>
 <div class="container">
     <h1>Все продукты</h1>
+    <div>
+        <input type="number" name="minPrice">
+        <input type="number" name="maxPrice">
+        <button type="submit">Фильтровать</button>
+    </div>
     <table class="table">
         <thead>
         <tr>
             <th>Название продукта</th>
             <th>Категория</th>
             <th>Цена</th>
-            <th>Редактировать</th>
-            <th>Удалить</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -26,10 +31,10 @@
             <td th:text="${product.category.name}"></td>
             <td th:text="${product.price}"></td>
             <td>
-                <a th:href="@{|products/update/${product.getId()}|}">Редактировать</a>
+                <a th:href="@{|products/update/${product.getId()}|}"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
             <td>
-                <a th:href="@{|products/delete/${product.getId()}|}">Удалить</a>
+                <a th:href="@{|products/delete/${product.getId()}|}"><i class="fa-solid fa-trash"></i></a>
             </td>
         </tr>
         </tbody>
@@ -41,4 +46,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/176ce5fa08.js" crossorigin="anonymous"></script>
 </html>
