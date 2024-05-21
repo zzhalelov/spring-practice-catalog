@@ -20,4 +20,6 @@ public interface ProductService {
     void deleteById(long id);
 
     Map<Option, Optional<Value>> getOptions(Product product);
+
+    List<Product> findByPriceRange(Double minPrice, Double maxPrice);
 }
