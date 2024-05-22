@@ -65,3 +65,7 @@ CREATE TABLE orders_products
     product_id BIGINT REFERENCES products (id),
     quantity   INT NOT NULL
 );
+
+--добавить к продукту ссылку на url картинки
+ALTER TABLE products
+    ADD COLUMN image_url VARCHAR(255);
