@@ -7,25 +7,34 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<h2>Создать продукт</h2>
-<h1 th:text="${category.name}"></h1>
-<form action="/products/create" method="post" th:object="${product}">
-    <input type="hidden" name="categoryId" th:value="${category.id}">
-    <p>Наименование:</p>
-    <input id="name" th:field="*{name}" required class="form-control">
-
-    <p>Указать значения характеристик:</p>
-    <div th:each="option : ${category.getOptions()}">
-        <input type="hidden" name="optionIds" th:value="${option.id}">
-        <p th:text="${option.name}"></p>
-        <input name="values" class="form-control">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6">
+        <h2 class="text-center">Создать продукт</h2>
+        <h1 class="text-center" th:text="${category.name}"></h1>
+        <form action="/products/create" method="post" th:object="${product}">
+            <input type="hidden" name="categoryId" th:value="${category.id}">
+            <div class="mb-3">
+                <label class="form-label">Наименование:</label>
+                <input id="name" th:field="*{name}" required class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Указать значения характеристик:</label>
+                <div th:each="option : ${category.getOptions()}">
+                    <input type="hidden" name="optionIds" th:value="${option.id}">
+                    <p th:text="${option.name}"></p>
+                    <input name="values" class="form-control">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Цена:</label>
+                <input id="price" th:field="*{price}" required class="form-control">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Создать</button>
+            </div>
+        </form>
     </div>
-
-    <p>Ценв:</p>
-    <input id="price" th:field="*{price}" required class="form-control">
-
-    <button class="btn btn-primary" type="submit">Создать</button>
-</form>
+</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
