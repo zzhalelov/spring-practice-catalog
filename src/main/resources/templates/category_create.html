@@ -7,11 +7,14 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<form action="/categories/create" method="post" th:object="${category}">
-    <p>Название категорий</p>
-    <input type="text" th:field="*{name}">
-    <p th:if="${error}" th:text="${error}" style="color: red"></p>
-    <button type="submit">Сохранить</button>
-</form>
+<div class="container">
+    <form action="/categories/create" method="post" th:object="${category}">
+        <p>Название категорий</p>
+        <input type="text" th:field="*{name}">
+        <p>Характеристики</p>
+        <input type="text" name="optionNames">
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
 </body>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 public class CategoryController {
+
     private final CategoryService categoryService;
     private final OptionService optionService;
 
@@ -29,7 +30,8 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Category category, @RequestParam String optionNames) {
+    public String createPost(@ModelAttribute Category category,
+                             @RequestParam String optionNames) {
         categoryService.create(category);
         optionService.create(optionNames, category);
         return "redirect:/categories";
