@@ -111,14 +111,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByPriceRange(Double minPrice, Double maxPrice) {
-        if (minPrice == null) minPrice = 0.0;
-        if (maxPrice == null) maxPrice = Double.MAX_VALUE;
-        String query = "SELECT * FROM products WHERE price BETWEEN ? AND ?";
-        return jdbcTemplate.query(query, new Object[]{minPrice, maxPrice}, new BeanPropertyRowMapper<>());
-    }
-
-    @Override
     public List<Product> findByFilters(Double minPrice, Double maxPrice, Long categoryId) {
         if (minPrice == null) minPrice = 0.0;
         if (maxPrice == null) maxPrice = Double.MAX_VALUE;

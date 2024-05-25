@@ -25,6 +25,9 @@ public class ProductController {
         List<Product> products = productService.findByFilters(minPrice, maxPrice, categoryId);
         model.addAttribute("products", products);
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
         return "products";
     }
 
@@ -32,6 +35,8 @@ public class ProductController {
     public String findById(@PathVariable long productId, Model model) {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
+        model.addAttribute("options", productService.getOptions(product));
+//        model.addAttribute("valueNames", pr);
         return "product_single_page";
     }
 
@@ -56,8 +61,8 @@ public class ProductController {
             @ModelAttribute Product product,
             @RequestParam long categoryId,
             @RequestParam List<Long> optionIds,
-            @RequestParam List<String> values) {
-        productService.create(product, categoryId, optionIds, values);
+            @RequestParam List<String> valueNames) {
+        productService.create(product, categoryId, optionIds, valueNames);
         return "redirect:/products";
     }
 

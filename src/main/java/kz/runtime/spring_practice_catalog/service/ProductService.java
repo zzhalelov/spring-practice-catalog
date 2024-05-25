@@ -21,7 +21,5 @@ public interface ProductService {
 
     Map<Option, Optional<Value>> getOptions(Product product);
 
-    List<Product> findByPriceRange(Double minPrice, Double maxPrice);
-
     List<Product> findByFilters(Double minPrice, Double maxPrice, Long categoryId);
 }
