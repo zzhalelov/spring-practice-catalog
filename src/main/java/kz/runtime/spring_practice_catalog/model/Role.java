@@ -1,10 +1,10 @@
 package kz.runtime.spring_practice_catalog.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum Role {
     USER("user", "Пользователь"),
     MODERATOR("moder", "Модератор"),
