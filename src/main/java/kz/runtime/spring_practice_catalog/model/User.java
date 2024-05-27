@@ -1,29 +1,30 @@
 package kz.runtime.spring_practice_catalog.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "users")
-@RequiredArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String login;
-    private String password;
-    private String name;
-    private String lastname;
+    Long id;
+    String name;
+    String lastname;
+    String login;
+    String password;
 
-    @Enumerated(value = EnumType.ORDINAL)
-    private Role role;
+    Role role;
 
-    @Column(name = "registered_at")
-    private LocalDateTime registeredDate;
+    @CreationTimestamp
+    LocalDateTime created;
 }

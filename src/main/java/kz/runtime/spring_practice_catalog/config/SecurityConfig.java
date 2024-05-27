@@ -2,6 +2,7 @@ package kz.runtime.spring_practice_catalog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,10 +20,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/products/create").authenticated();
             auth.requestMatchers("products/update/**").hasRole("admin");
-            auth.requestMatchers("products/delete/**").hasRole("admin");
             auth.anyRequest().permitAll();
         });
 
+        http.formLogin(Customizer.withDefaults());
         return http.build();
     }
 
