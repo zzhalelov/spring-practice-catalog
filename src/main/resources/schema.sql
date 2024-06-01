@@ -30,7 +30,7 @@ CREATE TABLE values
 --Создание таблицы пользователей
 CREATE TABLE users
 (
-    id       SERIAL8 primary key,
+    id       SERIAL primary key,
     name     VARCHAR(255),
     lastname VARCHAR(255),
     login    VARCHAR(255) NOT NULL UNIQUE,
@@ -42,3 +42,5 @@ CREATE TABLE users
 --добавить к продукту ссылку на url картинки
 ALTER TABLE products
     ADD COLUMN image_url VARCHAR(255);
+
+DROP TABLE users;
